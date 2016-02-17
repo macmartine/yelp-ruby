@@ -18,8 +18,8 @@ module Yelp
       #   business = client.business('yelp-san-francisco')
       #   business.name # => 'Yelp'
       #   buinesss.url  # => 'http://www.yelp.com/biz/yelp-san-francisco'
-      def business(id)
-        BurstStruct::Burst.new(JSON.parse(business_request(id).body))
+      def business(id, params = {})
+        BurstStruct::Burst.new(JSON.parse(business_request(id, params).body))
       end
 
       private
@@ -32,8 +32,8 @@ module Yelp
       #
       # @param id [String, Integer] the business id
       # @return [Faraday::Response] the raw response back from the connection
-      def business_request(id)
-        result = @client.connection.get PATH + id
+      def business_request(id, params = {})
+        result = @client.connection.get PATH + id, params
         Error.check_for_error(result)
         result
       end
