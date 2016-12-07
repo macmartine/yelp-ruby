@@ -4,7 +4,7 @@
 
 This is a Ruby Gem for the Yelp API. It'll simplify the process of consuming data from the Yelp API for developers using Ruby. The library encompasses both Search and Business API functions.
 
-Please remember to read and follow the [Terms of Use](http://www.yelp.com/developers/getting_started/api_terms) and [display requirements](http://www.yelp.com/developers/getting_started/display_requirements) before creating your applications.
+Please remember to read and follow the [Terms of Use](http://www.yelp.com/developers/getting_started/api_terms) and [display requirements](https://www.yelp.com/developers/display_requirements) before creating your applications.
 
 ## Installation
 
@@ -106,6 +106,22 @@ locale = { lang: 'fr' }
 client.business('yelp-san-francisco', locale)
 ```
 
+### [Phone Search API](http://www.yelp.com/developers/documentation/v2/phone_search)
+
+To use the Phone Search API after you have a client you just need to call ``#phone_search`` with a phone number
+
+```
+client.phone_search('+15555555555')
+```
+
+You can pass in country code information as well
+
+```
+options = { cc: 'US', category: 'fashion' }
+
+client.phone_search('5555555555', options)
+```
+
 ## Responses
 
 Responses from the API are all parsed and converted into Ruby objects. You're able to access information using dot-notation
@@ -127,14 +143,14 @@ response.businesses[0].rating
 ## business
 response = client.business('yelp-san-francisco')
 
-response.name
+response.business.name
 # Yelp
 
-response.categories
+response.business.categories
 # [["Local Flavor", "localflavor"], ["Mass Media", "massmedia"]]
 ```
 
-For specific response values check out the docs for the [search api](http://www.yelp.com/developers/documentation/v2/search_api#rValue) and the [business api](http://www.yelp.com/developers/documentation/v2/business#rValue)
+For specific response values check out the docs for the [Search API](http://www.yelp.com/developers/documentation/v2/search_api#rValue) and the [Business API](http://www.yelp.com/developers/documentation/v2/business#rValue). You can also look at the responses and models inside of `lib/yelp/responses` and `lib/yelp/responses/models` to see the methods available.
 
 ## Contributing
 
@@ -143,6 +159,10 @@ For specific response values check out the docs for the [search api](http://www.
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
+
+Our rspec test suite expects environment variables to be populated with your Yelp API Access Tokens.
+
+You can generate and find your Access Tokens at [https://www.yelp.com/developers/manage_api_keys](https://www.yelp.com/developers/manage_api_keys).
 
 ### Git Workflow
 

@@ -1,5 +1,7 @@
 require 'json'
 
+require 'yelp/responses/search'
+
 module Yelp
   module Endpoint
     class Search
@@ -15,13 +17,13 @@ module Yelp
       # Take a search_request and return the formatted/structured
       # response from the API
       #
-      # @param location [String] a string location of the neighboorhood,
+      # @param location [String] a string location of the neighborhood,
       #   address, or city
       # @param params [Hash] a hash that corresponds to params on the API:
       #   http://www.yelp.com/developers/documentation/v2/search_api#searchGP
       # @param locale [Hash] a hash that corresponds to locale on the API:
       #   http://www.yelp.com/developers/documentation/v2/search_api#lParam
-      # @return [BurstStruct::Burst] a parsed object of the response. For a complete
+      # @return [Response::Search] a parsed object of the response. For a complete
       #   list of possible response values visit:
       #   http://www.yelp.com/developers/documentation/v2/search_api#rValue
       #
@@ -44,7 +46,7 @@ module Yelp
         params.merge!(locale)
         params.merge!({location: location})
 
-        BurstStruct::Burst.new(JSON.parse(search_request(params).body))
+        Response::Search.new(JSON.parse(search_request(params).body))
       end
 
       # Search by a bounding box: specify a south west lat/long and a ne lat/long
@@ -57,7 +59,7 @@ module Yelp
       #   http://www.yelp.com/developers/documentation/v2/search_api#searchGP
       # @param locale [Hash] a hash that corresponds to locale on the API:
       #   http://www.yelp.com/developers/documentation/v2/search_api#lParam
-      # @return [BurstStruct::Burst] a parsed object of the response. For a complete
+      # @return [Response::Search] a parsed object of the response. For a complete
       #   list of possible response values visit:
       #   http://www.yelp.com/developers/documentation/v2/search_api#rValue
       #
@@ -90,7 +92,7 @@ module Yelp
         options.merge!(params)
         options.merge!(locale)
 
-        BurstStruct::Burst.new(JSON.parse(search_request(options).body))
+        Response::Search.new(JSON.parse(search_request(options).body))
       end
 
       # Search by coordinates: give it a latitude and longitude along with
@@ -103,7 +105,7 @@ module Yelp
       #   http://www.yelp.com/developers/documentation/v2/search_api#searchGP
       # @param locale [Hash] a hash that corresponds to locale on the API:
       #   http://www.yelp.com/developers/documentation/v2/search_api#lParam
-      # @return [BurstStruct::Burst] a parsed object of the response. For a complete
+      # @return [Response::Search] a parsed object of the response. For a complete
       #   list of possible response values visit:
       #   http://www.yelp.com/developers/documentation/v2/search_api#rValue
       #
@@ -136,7 +138,7 @@ module Yelp
         options.merge!(params)
         options.merge!(locale)
 
-        BurstStruct::Burst.new(JSON.parse(search_request(options).body))
+        Response::Search.new(JSON.parse(search_request(options).body))
       end
 
       private

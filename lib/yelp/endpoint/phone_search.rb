@@ -1,39 +1,47 @@
 require 'json'
 
+require 'yelp/responses/phone_search'
+
 module Yelp
   module Endpoint
     class PhoneSearch
-      PATH = '/v2/phone_search'
+      PATH = '/v2/phone_search/'
 
       def initialize(client)
         @client = client
       end
 
-      # Make a request to the phone search endpoint on the API
+      # Make a request to the business endpoint on the API
       #
-      # @param phone [String] the phone number
-      # @param params [Hash] a hash that corresponds to params on the API:
-      #   https://www.yelp.com/developers/documentation/v2/phone_search
-      # @return [BurstStruct] the parsed response object from the API
+      # @param phone_number [String] the phone number
+      # @return [Response::PhoneSearch] a parsed object of the response. For a complete
+      #   sample response visit:
+      #   http://www.yelp.com/developers/documentation/v2/phone_search#sampleResponse
       #
-      # @example Search for business by phone number with params
-      #   params = { cc: 'US',
-      #              category: 'discgolf' }
-      #   response = client.phone_search('5555555555')
+      # @example Search for business with params and locale
+      #   options = { code: 'US',
+      #              category: 'localflavor' }
+      #
+      #   response = client.phone_search('+14159083801', options)
       #   response.businesses # [<Business 1>, <Business 2>, <Business 3>]
       #   response.businesses[0].name # 'Yelp'
-      def phone_search(phone, params = {})
-        params.merge!({phone: phone, cc: "US"})
-        BurstStruct::Burst.new(JSON.parse(phone_search_request(params).body))
+      #
+      def phone_search(phone, options={})
+        params = {phone: phone}
+        params.merge!(options)
+
+        Response::PhoneSearch.new(JSON.parse(phone_search_request(params).body))
       end
 
       private
 
-      # Make a request against the search endpoint from the API and return the
-      # raw response. After getting the response back it's checked to see if
-      # there are any API errors and raises the relevant one if there is.
+      # Make a request to the business endpoint of the API
+      # The endpoint requires a format of /v2/business/{business-id}
+      # so the primary request parameter is concatenated. After getting
+      # the response back it's checked to see if there are any API errors
+      # and raises the relevant one if there is.
       #
-      # @param params [Hash] a hash of parameters for the search request
+      # @param params [Hash] a hash of options for phone search
       # @return [Faraday::Response] the raw response back from the connection
       def phone_search_request(params)
         result = @client.connection.get PATH, params

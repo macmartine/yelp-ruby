@@ -1,0 +1,77 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.yelp.com/v2/phone_search/?category=localflavor&code=US&phone=%2B14159083801
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.9.2
+      Authorization:
+      - OAuth oauth_consumer_key="<YELP_CONSUMER_KEY>", oauth_nonce="5b8d9faacf0dc4c2f2cbb3ed904c9f55",
+        oauth_signature="0UlCkZ1QfOAwkgwigX70CgEbQws%3D", oauth_signature_method="HMAC-SHA1",
+        oauth_timestamp="1445634931", oauth_token="<YELP_TOKEN>", oauth_version="1.0"
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Fri, 23 Oct 2015 21:15:32 GMT
+      Content-Type:
+      - application/json; charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      X-Node:
+      - api_com
+      - web33-uswest1bprod
+      Cache-Control:
+      - max-age=0, must-revalidate, no-cache, no-store, private
+      Expires:
+      - Fri, 23 Oct 2015 21:15:32 GMT
+      Pragma:
+      - no-cache
+      Set-Cookie:
+      - bse=8a9ac2d4ee0edd5d982bac7ca3a19d4c; Domain=.yelp.com; Path=/; HttpOnly
+      - yuv=coC3j06jVRpuLXNOKekpRdQsc7HEE41uBFVzZ8_ueVLUp9Pc5hlxuFmqNh1cweg-SfbFhaUYm6G1_WCn4Z5reAUET7LR5vka;
+        Domain=.yelp.com; Max-Age=630720000; Path=/; expires=Thu, 18-Oct-2035 21:15:32
+        GMT
+      Vary:
+      - Accept-Encoding,User-Agent
+      X-Mode:
+      - ro
+      X-Proxied:
+      - 10-64-0-167-uswest1aprod
+    body:
+      encoding: UTF-8
+      string: '{"region": null, "total": 1, "businesses": [{"is_claimed": true, "rating":
+        2.5, "mobile_url": "http://m.yelp.com/biz/yelp-san-francisco", "rating_img_url":
+        "http://s3-media4.fl.yelpcdn.com/assets/2/www/img/c7fb9aff59f9/ico/stars/v1/stars_2_half.png",
+        "review_count": 7534, "name": "Yelp", "rating_img_url_small": "http://s3-media4.fl.yelpcdn.com/assets/2/www/img/8e8633e5f8f0/ico/stars/v1/stars_small_2_half.png",
+        "url": "http://www.yelp.com/biz/yelp-san-francisco", "categories": [["Local
+        Flavor", "localflavor"], ["Mass Media", "massmedia"]], "phone": "+14159083801",
+        "snippet_text": "My 200th review! For this milestone I have decided to review
+        Yelp. I wrote my first Yelp review back in 2013, I never thought that one
+        review would turn...", "image_url": "http://s3-media3.fl.yelpcdn.com/bphoto/nQK-6_vZMt5n88zsAS94ew/ms.jpg",
+        "snippet_image_url": "http://s3-media1.fl.yelpcdn.com/photo/RCmPU2uqGkm0A_NEcRJm0g/ms.jpg",
+        "display_phone": "+1-415-908-3801", "rating_img_url_large": "http://s3-media2.fl.yelpcdn.com/assets/2/www/img/d63e3add9901/ico/stars/v1/stars_large_2_half.png",
+        "id": "yelp-san-francisco", "is_closed": false, "location": {"cross_streets":
+        "Natoma St \u0026 Minna St", "city": "San Francisco", "display_address": ["140
+        New Montgomery St", "Financial District", "San Francisco, CA 94105"], "geo_accuracy":
+        9.5, "neighborhoods": ["Financial District", "SoMa"], "postal_code": "94105",
+        "country_code": "US", "address": ["140 New Montgomery St"], "coordinate":
+        {"latitude": 37.7867703362929, "longitude": -122.399958372115}, "state_code":
+        "CA"}}]}'
+    http_version: 
+  recorded_at: Fri, 23 Oct 2015 21:15:32 GMT
+recorded_with: VCR 2.9.3
