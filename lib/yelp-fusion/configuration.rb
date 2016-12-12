@@ -17,7 +17,7 @@ module YelpFusion
           self.send("#{config_name}=", config_value)
         end
 
-        oauth2_client = OAuth2::Client.new(@client_id, @client_secret, :site => YelpFusion::Client::API_HOST, :token_url => "/oauth2/token")
+        oauth2_client = OAuth2::Client.new(@client_id, @client_secret, :site => YelpFusion::Client::API_HOST, :token_url => "/oauth2/token", :raise_errors => false)
         @token = oauth2_client.auth_code.get_token(nil)
       end
     end

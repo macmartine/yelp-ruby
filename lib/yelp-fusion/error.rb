@@ -24,15 +24,22 @@ module YelpFusion
       # @return [YelpFusion::Error::Base] exception corresponding to API error
       def error_from_response(response)
         body = JSON.parse(response.body)
-        klass = error_classes[body['error']['id']]
-        klass.new(body['error']['text'], body['error'])
+        klass = error_classes[body['error']['code']]
+        klass.new(body['error']['description'], body['error'])
       end
 
       # Maps from API Error id's to YelpFusion::Error exception classes.
       def error_classes
         @@error_classes ||= Hash.new do |hash, key|
           class_name = key.split('_').map(&:capitalize).join('').gsub('Oauth', 'OAuth')
-          hash[key] = YelpFusion::Error.const_get(class_name)
+
+          if YelpFusion::Error.const_defined? class_name
+            klass = YelpFusion::Error.const_get(class_name)
+          else
+            klass = YelpFusion::Error::UnknownError
+          end
+
+          hash[key] = klass
         end
       end
     end
@@ -77,7 +84,7 @@ module YelpFusion
     end
 
     class InvalidParameter < Base
-      attr_reader :text, :field 
+      attr_reader :text, :field
 
       def initialize(msg='One or more parameters were invalid', error=nil)
         unless error.nil?
@@ -100,6 +107,7 @@ module YelpFusion
     class UnavailableForLocation  < Base; end
     class AreaTooLarge            < Base; end
     class MultipleLocations       < Base; end
-    class BusinessUnavailable     < Base; end
+    class BusinessNotFound        < Base; end
+    class UnknownError            < Base; end
   end
 end
