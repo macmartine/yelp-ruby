@@ -1,13 +1,13 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'yelp/version'
+require 'yelp-fusion/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'yelp'
-  spec.version       = Yelp::VERSION
-  spec.authors       = ['Tomer Elmalem', 'Justin Cunningham', 'Yelp', 'Nick Kuyakanon']
-  spec.email         = ['telmalem@gmail.com', 'partnerships@yelp.com', 'nickuya@gmail.com']
+  spec.name          = 'yelp-fusion'
+  spec.version       = YelpFusion::VERSION
+  spec.authors       = ['Tomer Elmalem', 'Justin Cunningham', 'Yelp']
+  spec.email         = ['telmalem@gmail.com', 'partnerships@yelp.com']
   spec.summary       = %q{Ruby client library for the Yelp API}
   spec.description   = 'Provides an easy way to interact with the Yelp API in any kind of application'
   spec.homepage      = 'https://github.com/Yelp/yelp-ruby'
@@ -31,5 +31,5 @@ Gem::Specification.new do |spec|
 
   spec.add_runtime_dependency 'faraday', '~> 0.8', '>= 0.8.0'
   spec.add_runtime_dependency 'faraday_middleware', '~> 0.8', '>= 0.8.0'
-  spec.add_runtime_dependency 'simple_oauth', '~> 0.3.1'
+  spec.add_runtime_dependency 'oauth2', '~> 1.2.0'
 end

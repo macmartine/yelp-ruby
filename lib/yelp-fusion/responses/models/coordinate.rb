@@ -1,9 +1,9 @@
-require 'yelp/responses/base'
+require 'yelp-fusion/responses/base'
 
-module Yelp
+module YelpFusion
   module Response
     module Model
-      class RegionCenter < Response::Base
+      class Coordinate < Response::Base
         attr_reader :latitude, :longitude
       end
     end

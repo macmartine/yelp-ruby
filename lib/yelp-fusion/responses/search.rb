@@ -1,8 +1,7 @@
-require 'yelp/responses/base'
-require 'yelp/responses/models/business'
-require 'yelp/responses/models/region'
+require 'yelp-fusion/responses/base'
+require 'yelp-fusion/responses/models/business'
 
-module Yelp
+module YelpFusion
   module Response
     class Search < Base
       attr_reader :businesses, :region, :total
@@ -11,7 +10,6 @@ module Yelp
         super(json)
 
         @businesses = parse(@businesses, Model::Business)
-        @region     = parse(@region, Model::Region)
       end
     end
   end

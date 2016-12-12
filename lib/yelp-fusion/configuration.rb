@@ -1,8 +1,11 @@
-module Yelp
+require 'oauth2'
+
+module YelpFusion
   class Configuration
-    AUTH_KEYS = [:consumer_key, :consumer_secret, :token, :token_secret]
+    AUTH_KEYS = [:client_id, :client_secret]
 
     attr_accessor *AUTH_KEYS
+    attr_reader :token
 
     # Creates the configuration
     # @param [Hash] hash containing configuration parameters and their values
@@ -13,6 +16,9 @@ module Yelp
         config_hash.each do |config_name, config_value|
           self.send("#{config_name}=", config_value)
         end
+
+        oauth2_client = OAuth2::Client.new(@client_id, @client_secret, :site => YelpFusion::Client::API_HOST, :token_url => "/oauth2/token")
+        @token = oauth2_client.auth_code.get_token(nil)
       end
     end
 

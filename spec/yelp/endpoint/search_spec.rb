@@ -1,12 +1,12 @@
 require 'spec_helper'
 
-describe Yelp::Endpoint::Search do
+describe YelpFusion::Endpoint::Search do
   include_context 'shared configuration'
 
   let(:api_keys) { real_api_keys }
   let(:location) { 'San Francisco' }
   let(:params) { {term: 'restaurants', category_filter: 'discgolf'} }
-  let(:client) { Yelp::Client.new(api_keys) }
+  let(:client) { YelpFusion::Client.new(api_keys) }
 
   describe '#search' do
     subject(:results) {
@@ -15,7 +15,7 @@ describe Yelp::Endpoint::Search do
       end
     }
 
-    it { is_expected.to be_a(Yelp::Response::Search) }
+    it { is_expected.to be_a(YelpFusion::Response::Search) }
 
     it 'should get results' do
       expect(results.businesses.size).to be > 0
@@ -45,7 +45,7 @@ describe Yelp::Endpoint::Search do
     context 'when params are empty' do
       subject { -> { client.search_by_bounding_box({}, params) } }
 
-      it { is_expected.to raise_error(Yelp::Error::BoundingBoxNotComplete) }
+      it { is_expected.to raise_error(YelpFusion::Error::BoundingBoxNotComplete) }
     end
   end
 
@@ -65,7 +65,7 @@ describe Yelp::Endpoint::Search do
     context 'when params are empty' do
       subject { -> { client.search_by_coordinates({}, params) } }
 
-      it { is_expected.to raise_error(Yelp::Error::MissingLatLng) }
+      it { is_expected.to raise_error(YelpFusion::Error::MissingLatLng) }
     end
   end
 

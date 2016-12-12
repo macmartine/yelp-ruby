@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe Yelp::Client do
+describe YelpFusion::Client do
   include_context 'shared configuration'
 
-  let(:client) { Yelp::Client.new(api_keys) }
+  let(:client) { YelpFusion::Client.new(api_keys) }
   let(:api_keys) { valid_api_keys }
 
   def configure_client_with_api_keys(api_keys)
@@ -16,7 +16,7 @@ describe Yelp::Client do
     subject { client }
 
     context 'with valid configuration' do
-      its(:configuration) { is_expected.to be_a Yelp::Configuration }
+      its(:configuration) { is_expected.to be_a YelpFusion::Configuration }
       its(:configuration) { is_expected.to be_frozen }
 
       it 'should not be reconfigurable' do
@@ -37,7 +37,7 @@ describe Yelp::Client do
 
   describe '#configure' do
     subject { client.configuration }
-    let(:client) { Yelp::Client.new }
+    let(:client) { YelpFusion::Client.new }
 
     context 'with valid configuration' do
       before { configure_client_with_api_keys(api_keys) }
@@ -52,7 +52,7 @@ describe Yelp::Client do
         expect { configure_client_with_api_keys(valid_api_keys) }.to raise_error
       end
 
-      it { is_expected.to be_a Yelp::Configuration }
+      it { is_expected.to be_a YelpFusion::Configuration }
       it { is_expected.to be_frozen }
     end
 
@@ -64,7 +64,7 @@ describe Yelp::Client do
   end
 
   describe '#connection' do
-    let(:client) { Yelp::Client.new }
+    let(:client) { YelpFusion::Client.new }
 
     context 'without configuration' do
       it 'should raise an error' do

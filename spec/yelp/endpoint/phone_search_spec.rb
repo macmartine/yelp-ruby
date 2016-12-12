@@ -1,12 +1,12 @@
 require 'spec_helper'
 
-describe Yelp::Endpoint::PhoneSearch do
+describe YelpFusion::Endpoint::PhoneSearch do
   include_context 'shared configuration'
 
   let(:api_keys) { real_api_keys }
   let(:phone) { '+14159083801' }
   let(:options) { {code: 'US', category: 'localflavor'} }
-  let(:client) { Yelp::Client.new(api_keys) }
+  let(:client) { YelpFusion::Client.new(api_keys) }
 
   describe '#phone_search' do
     subject(:results) {
@@ -15,7 +15,7 @@ describe Yelp::Endpoint::PhoneSearch do
       end
     }
 
-    it { is_expected.to be_a(Yelp::Response::PhoneSearch) }
+    it { is_expected.to be_a(YelpFusion::Response::PhoneSearch) }
 
     it 'should get results' do
       expect(results.businesses.size).to be > 0

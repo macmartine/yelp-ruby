@@ -1,4 +1,4 @@
-module Yelp
+module YelpFusion
   module Response
     class Base
       def initialize(json)

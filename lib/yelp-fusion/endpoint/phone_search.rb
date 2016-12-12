@@ -1,11 +1,11 @@
 require 'json'
 
-require 'yelp/responses/phone_search'
+require 'yelp-fusion/responses/phone_search'
 
-module Yelp
+module YelpFusion
   module Endpoint
     class PhoneSearch
-      PATH = '/v2/phone_search/'
+      PATH = '/v3/businesses/search/phone/'
 
       def initialize(client)
         @client = client
@@ -44,7 +44,7 @@ module Yelp
       # @param params [Hash] a hash of options for phone search
       # @return [Faraday::Response] the raw response back from the connection
       def phone_search_request(params)
-        result = @client.connection.get PATH, params
+        result = @client.connection.get PATH, :params => params
         Error.check_for_error(result)
         result
       end

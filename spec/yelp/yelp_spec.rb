@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-describe Yelp do
+describe YelpFusion do
   describe '::client' do
-    subject { Yelp.client }
+    subject { YelpFusion.client }
 
-    it { is_expected.to be_a Yelp::Client }
+    it { is_expected.to be_a YelpFusion::Client }
     its(:configuration) { is_expected.to be nil }
   end
 end

@@ -1,11 +1,11 @@
 require 'spec_helper'
 
-describe Yelp::Endpoint::Business do
+describe YelpFusion::Endpoint::Business do
   include_context 'shared configuration'
 
   let(:api_keys) { real_api_keys }
   let(:business) { 'yelp-san-francisco' }
-  let(:client) { Yelp::Client.new(api_keys) }
+  let(:client) { YelpFusion::Client.new(api_keys) }
   let(:locale) { {lang: 'fr'} }
 
   describe '#business' do
@@ -15,7 +15,7 @@ describe Yelp::Endpoint::Business do
       end
     }
 
-    it { is_expected.to be_a(Yelp::Response::Business) }
+    it { is_expected.to be_a(YelpFusion::Response::Business) }
     its('business.name') { is_expected.to eq('Yelp') }
     its('business.url') { is_expected.to include('yelp.com') }
 
@@ -26,7 +26,7 @@ describe Yelp::Endpoint::Business do
         end
       }
 
-      it { is_expected.to be_a(Yelp::Response::Business) }
+      it { is_expected.to be_a(YelpFusion::Response::Business) }
       its('business.name') { is_expected.to eq('Yelp') }
       its('business.url') { is_expected.to include('yelp.fr') }
     end

@@ -1,19 +1,19 @@
 require 'faraday'
 require 'faraday_middleware'
 
-require 'yelp/configuration'
-require 'yelp/error'
-require 'yelp/endpoint/business'
-require 'yelp/endpoint/phone_search'
-require 'yelp/endpoint/search'
-require 'yelp/endpoint/phone_search'
+require 'yelp-fusion/configuration'
+require 'yelp-fusion/error'
+require 'yelp-fusion/endpoint/business'
+require 'yelp-fusion/endpoint/phone_search'
+require 'yelp-fusion/endpoint/search'
+require 'yelp-fusion/endpoint/phone_search'
 
-module Yelp
+module YelpFusion
   class Client
     API_HOST  = 'https://api.yelp.com'
-    REQUEST_CLASSES = [ Yelp::Endpoint::Search,
-                        Yelp::Endpoint::Business,
-                        Yelp::Endpoint::PhoneSearch]
+    REQUEST_CLASSES = [ YelpFusion::Endpoint::Search,
+                        YelpFusion::Endpoint::Business,
+                        YelpFusion::Endpoint::PhoneSearch]
 
     attr_reader :configuration
 
@@ -36,10 +36,8 @@ module Yelp
     # @raise [MissingAPIKeys] if the configuration is invalid
     # @example Simple configuration
     #   Yelp.client.configure do |config|
-    #     config.consumer_key = 'abc'
-    #     config.consumer_secret = 'def'
-    #     config.token = 'ghi'
-    #     config.token_secret = 'jkl'
+    #     config.client_id = 'abc'
+    #     config.client_secret = 'def'
     #   end
     def configure
       raise Error::AlreadyConfigured unless @configuration.nil?
@@ -67,13 +65,7 @@ module Yelp
       return @connection if instance_variable_defined?(:@connection)
 
       check_api_keys
-      @connection = Faraday.new(API_HOST) do |conn|
-        # Use the Faraday OAuth middleware for OAuth 1.0 requests
-        conn.request :oauth, @configuration.auth_keys
-
-        # Using default http library, had to specify to get working
-        conn.adapter :net_http
-      end
+      @connection = @configuration.token
     end
 
     private

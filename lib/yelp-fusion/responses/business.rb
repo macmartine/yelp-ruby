@@ -1,7 +1,7 @@
-require 'yelp/responses/base'
-require 'yelp/responses/models/business'
+require 'yelp-fusion/responses/base'
+require 'yelp-fusion/responses/models/business'
 
-module Yelp
+module YelpFusion
   module Response
     class Business < Base
       attr_reader :business
