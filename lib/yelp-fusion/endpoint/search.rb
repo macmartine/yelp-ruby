@@ -7,6 +7,8 @@ module YelpFusion
     class Search
       PATH = '/v3/businesses/search'
 
+      # COORDINATES  = [:latitude, :longitude, :accuracy, :altitude, :altitude_accuracy]
+
       def initialize(client)
         @client = client
       end
@@ -85,12 +87,21 @@ module YelpFusion
         raise Error::MissingLatLng if coordinates[:latitude].nil? ||
             coordinates[:longitude].nil?
 
-        options.merge!(coordinates)
+        options = coordinates
         options.merge!(params)
         options.merge!(locale)
 
         Response::Search.new(JSON.parse(search_request(options).body))
       end
+
+      # Build the coordinates string for the api. Takes the hash of coordinates, loops
+      # over the keys in the specific order they're listed in the API docs, and builds
+      # that resulting string
+      # def build_coordinates_string(coordinates)
+      #   COORDINATES.collect do |param|
+      #     coordinates[param]
+      #   end.join(',')
+      # end
 
       private
 
