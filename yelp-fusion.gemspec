@@ -31,5 +31,5 @@ Gem::Specification.new do |spec|
 
   spec.add_runtime_dependency 'faraday' #, '~> 0.8', '>= 0.8.0'
   spec.add_runtime_dependency 'faraday_middleware' #, '~> 0.8', '>= 0.8.0'
-  spec.add_runtime_dependency 'oauth2', '~> 1.2.0'
+  spec.add_runtime_dependency 'oauth2' #, '~> 1.2.0'
 end
